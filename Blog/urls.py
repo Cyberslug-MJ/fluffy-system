@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .errors import custom_404, custom_500
+#from .errors import custom_404, custom_500
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +24,5 @@ urlpatterns = [
 ]
 
 "Handlers for 404 and 500 responses"
-handler500 = custom_500
-handler404 = custom_404
+#handler500 = custom_500
+#handler404 = custom_404
