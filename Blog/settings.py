@@ -15,16 +15,17 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 Production = os.environ.get('PRODUCTION', 'FALSE').lower() == "true"
+#Production = False
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-if not Production:
+if Production == False:
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 'django-insecure-xk3=lgjz1s4-a-e^k8sm+nbl1xame8@i=x(76g$)dpm+4-#u@p'
 
     # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
+    DEBUG = False
 
     ALLOWED_HOSTS = ['localhost']
 
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'api.middleware.logging.LoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'Blog.urls'
@@ -97,6 +99,7 @@ DATABASES = {
         },
     }
 }
+
 
 
 # Password validation
