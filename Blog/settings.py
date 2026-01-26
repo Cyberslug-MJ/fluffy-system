@@ -95,7 +95,7 @@ DATABASES = {
         'HOST': os.environ.get('HOST'),
         'PORT': os.environ.get('PORT'),
         'OPTIONS': {
-            'sslmode': 'require',
+            'ssl': 'require',
         },
     }
 }
