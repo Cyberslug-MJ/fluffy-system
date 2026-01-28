@@ -19,6 +19,11 @@ def home(request):
         return Response({'sermons':serializer.data},status=status.HTTP_200_OK)
     
 
+@api_view(['GET'])
+def keep_alive(request):
+    return Response({'status':'alive'},status=status.HTTP_200_OK)
+
+
 @api_view(['GET'])  # List all sermons - POST via adminPanel only.
 def sermon_list(request):
     if request.method == 'GET':
