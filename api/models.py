@@ -10,13 +10,13 @@ class Sermon(models.Model):
         ('CS','Communion Service'),
         ('OT','Other'),
     ))
-    scripture_references = models.TextField()
     body = models.TextField()
     preacher = models.ForeignKey('Preacher',on_delete=models.CASCADE)
     date_preached = models.DateField()
+    link = models.URLField(blank=True,null=True)
+    approved = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    link = models.URLField(blank=True,null=True)
 
     def __str__(self):
         return self.title + '  - ' + self.tags
@@ -97,3 +97,31 @@ class Staff(models.Model):
 
     def __str__(self):
         return self.full_name + ' ' + self.title
+    
+
+class Records(models.Model):
+    day = models.DateField()
+    first_timers_count = models.PositiveIntegerField()
+    total_attendance = models.PositiveIntegerField()
+    first_offering = models.DecimalField(max_digits=10, decimal_places=2)
+    second_offering = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Sunday Records'
+
+    def __str__(self):
+        return f'Records for {self.day}'
+    
+
+class ScriptureReference(models.Model):
+    sermon = models.ForeignKey(Sermon, on_delete=models.CASCADE, related_name='scripture_references')
+    scripture = models.CharField(max_length=150)
+    link = models.URLField(blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return f'{self.scripture} for {self.sermon.title}'
